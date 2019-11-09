@@ -1,9 +1,9 @@
 'use strict'
 
 let messageList = []
-let _myChat;
+let myChat;
 
-window.addEventListener('load', function() {
+window.addEventListener('load', function() { //sets default profile_input (radio)
   for (let i = 0; i < profile_input.length; i++) {
     if (profile_input[i].checked) {
       profile_input[i].click();
@@ -11,14 +11,14 @@ window.addEventListener('load', function() {
   }
 });
 
-profile_input[0].addEventListener('click', function() {
+profile_input[0].addEventListener('click', function() { //radio top
   nick_input.disabled = true;
   nick_input.value = 'justinfan' + Math.floor(Math.random() * 100000);
   pass_input.disabled = true;
   pass_input.value = 'SCHMOOPIIE';
 });
 
-profile_input[2].addEventListener('click', function() {
+profile_input[2].addEventListener('click', function() { //radio bottom
   nick_input.disabled = false;
   nick_input.value = '';
   pass_input.disabled = false;
@@ -28,15 +28,14 @@ profile_input[2].addEventListener('click', function() {
 connect_button.addEventListener('click', function(e) {//Connect button of the field
   if (nick_input.value && pass_input.value && channel_input.value) {
 
-    let myChat = new TwitchChat(nick_input.value, pass_input.value, channel_input.value);
-    _myChat = myChat;
+    myChat = new TwitchChat(nick_input.value, pass_input.value, channel_input.value);
     myChat.startChat();
-
-    myChat.addChatListener(chatHandler);
+    myChat.addChatListener(chatListener);
+    myChat.addStatusListener(statusListener, statusListener, statusListener);
   }
 });
 
-function chatHandler(message) {
+function chatListener(message) { //message listener
 
   messageList.push(message);
 
@@ -53,4 +52,8 @@ function chatHandler(message) {
     'font-family:sans-serif;font-size:16px;font-weight:bold;background-color:#ffffff;color:' + sampleColor,
     'font-family:sans-serif;font-size:16px;background-color:#ffffff;color: #000000');
   }
+}
+
+function statusListener(message) {
+  console.log(message);
 }

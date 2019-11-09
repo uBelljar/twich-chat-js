@@ -19,8 +19,6 @@ class TwitchChat {
     let messageIndex = 0;
     let channel = this._channel;
 
-	//Добавить PING-PONG через setInterval
-  //Добавить перевод строк в Lowercase - частично сделано
     this._chatSocket = chatSocket;
 
     chatSocket.addEventListener('open', function(e) {
@@ -35,12 +33,9 @@ class TwitchChat {
         this.send(`JOIN #${channel}`); // проблемы с контекстом
         channelIsEnter = !channelIsEnter;
       }
-
-      // console.log("%cNew Message:", "font-size: 20px;");
-      // console.log(e.data);
-      //
     });
 
+    let pingSender = setInterval(() => {chatSocket.send('PING');}, 120000);
     return chatSocket;
   }
 
@@ -56,9 +51,20 @@ class TwitchChat {
   }
 
   addChatListener(messageHandler) {
-    let tempHendler = messageHandler;
     this._chatSocket.addEventListener('message', function(e) {
-      tempHendler(e.data);
+      messageHandler(e.data);
+    });
+  }
+
+  addStatusListener(statusOpenHandler, statusCloseHandler, statusErrorHandler) {
+    this._chatSocket.addEventListener('open', function(e) {
+      statusOpenHandler('OPEN');
+    });
+    this._chatSocket.addEventListener('close', function(e) {
+      statusCloseHandler('CLOSED');
+    });
+    this._chatSocket.addEventListener('error', function(e) {
+      statusErrorHandler('ERROR');
     });
   }
 
