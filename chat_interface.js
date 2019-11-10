@@ -2,6 +2,7 @@
 
 let messageList = []
 let myChat;
+let profile_input = document.querySelectorAll('.profile_input');
 
 window.addEventListener('load', function() { //sets default profile_input (radio)
   for (let i = 0; i < profile_input.length; i++) {
@@ -39,19 +40,9 @@ function chatListener(message) { //message listener
 
   messageList.push(message);
 
-  let regNick = /(?<=display-name=)[^;]+/;
-  let regMessage = /(?<=PRIVMSG.+:).+/;
-  let regColor = /(?<=color=)[^;]+/;
-
-  let sampleNick = message.match(regNick);
-  let sampleMessage = message.match(regMessage);
-  let sampleColor = message.match(regColor); //error null when 'color=' (has no value)
-  if (sampleColor === null) { sampleColor = '#000000';}
-  if(sampleNick && sampleMessage) {
-  console.log('%c' + sampleNick[0] +': %c' + sampleMessage[0] + ' ',
-    'font-family:sans-serif;font-size:16px;font-weight:bold;background-color:#ffffff;color:' + sampleColor,
+  console.log('%c' + message.nick +': %c' + message.message + ' ',
+    'font-family:sans-serif;font-size:16px;font-weight:bold;background-color:#ffffff;color:' + message.color,
     'font-family:sans-serif;font-size:16px;background-color:#ffffff;color: #000000');
-  }
 }
 
 function statusListener(message) {
