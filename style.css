@@ -2,12 +2,26 @@
   display: flex;
   flex-direction: column;
   align-items: flex-end;
+  margin: 10px;
   padding: 10px 15px;
   width: 310px;
   background-color: lightgrey;
   background-image: linear-gradient(lightgrey 40%, grey);
   box-shadow: 0 2px 5px -2px black;
   border-radius: 5px;
+  position: relative;
+}
+
+.hidden {
+  height: 0;
+  padding: 0 15px;
+}
+
+.tooltip {
+  position: absolute;
+  padding: 10px;
+  z-index: 10;
+  background-color: rgba(255, 255, 255, 0.4);
 }
 
 .enter-form > label {
@@ -26,4 +40,42 @@
 
 .radiobuttons label {
   vertical-align:text-top;
+}
+
+/*MESSAGE BOX ==================================*/
+
+.message-box {
+  position: relative;
+  width: 500px;
+  height: 600px;
+  padding: 10px 15px;
+  margin: 10px;
+  border: 1px solid lightgrey;
+  box-shadow: 0 2px 5px -2px black;
+  overflow: hidden;
+}
+
+.scrollbar {
+  position: absolute;
+  display: block;
+  width: 16px;
+  height: 100px;
+  border-radius: 8px;
+  right: 1px;
+  background-color: lightgrey;
+  user-select: none;
+}
+
+.scrollbar:focus {
+  border: none;
+}
+
+.message-container {
+  margin-bottom: 5px;
+  font-size: 20px;
+  font-family: sans-serif;
+}
+
+.message-nick {
+  font-weight: bold;
 }

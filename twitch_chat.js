@@ -10,6 +10,8 @@ class TwitchChat {
     if (inputPass) this._pass = inputPass.toLowerCase();
     if (inputChannel) this._channel = inputChannel.toLowerCase();
       else this._channel = this._nick;
+
+    this.startChat();
   }
 
   startChat() {
@@ -34,7 +36,7 @@ class TwitchChat {
     //     channelIsEnter = !channelIsEnter;
     //   }
     // });
-    setTimeout(() => {chatSocket.send(`JOIN #${channel}`);}, 2000);
+    setTimeout(() => {chatSocket.send(`JOIN #${channel}`);}, 1500);
     let pingSender = setInterval(() => {chatSocket.send('PING');}, 120000);
     return chatSocket;
   }
@@ -77,6 +79,7 @@ class TwitchChat {
       catch {
         if (sampleText.includes('USERNOTICE')) { //кстати не факт, что USERNOTICE === new Subscriber, нужно проверять
           console.log('SUBSCRIBER')
+          return;
         }
         console.error(e.data);
       }

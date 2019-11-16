@@ -9,7 +9,7 @@
 </head>
 <body>
   <div class="chat-container">
-    <div class="enter-form">
+    <div class="enter-form" id="enter_form">
       <label>Ник (как на Twitch): <input type="text" id="nick_input" name="username"></label>
       <label>Пароль (oauth): <input type="password" id="pass_input" name="password"></label>
       <label>Канал: <input type="text" id="channel_input" name="channel"></label>
@@ -18,10 +18,15 @@
         <label><input type="radio" class="profile_input" name="profile" value="2">default</label>
         <label><input type="radio" class="profile_input" name="profile" value="3">yourself</label>
       </fieldset>
-      <button type="button" id="connect_button">Connect</button>
+      <button type="button" id="connect_button" data-tooltip="Connect">Connect</button>
+    </div>
+
+    <div class="message-box" id="message_box">
+      <!-- тут появляются сообщения -->
     </div>
   </div>
 
+  <script type="text/javascript" src="scrollbar.js"></script>
   <script type="text/javascript" src="twitch_chat.js"></script>
   <script type="text/javascript" src="chat_interface.js"></script>
 </body>
